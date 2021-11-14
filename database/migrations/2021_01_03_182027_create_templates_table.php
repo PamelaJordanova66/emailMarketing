@@ -17,8 +17,8 @@ class CreateTemplatesTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('user_id');
-            $table->string('email_subject');
-            $table->longText('email_message')->nullable();
+            $table->string('email_subject')->nullable();
+            $table->longText('email_message');
             $table->json('bcc_email')->nullable();
             $table->json('cc_email')->nullable();
             $table->timestamp('schedule_sending')->nullable();

@@ -16,7 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Auth::routes(['verify' => true]);
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth', 'verified'], function () {
+    Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::resources([
+        'customers' => \App\Http\Controllers\Customer\CustomerController::class,
+        'groups' => \App\Http\Controllers\Group\GroupController::class,
+        'templates' => \App\Http\Controllers\Template\TemplateController::class,
+    ]);
+    
+});
