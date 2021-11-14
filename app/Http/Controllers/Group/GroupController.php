@@ -94,8 +94,9 @@ class GroupController extends Controller
         ]);
         
         try {
-            $group->name = $request->name;
-            $group->save();
+            $group->update([
+                'name' => $request->name,
+            ]);
             session()->flash('success','Group updated successfully');
         } catch (\Exception $e) {
             //add log here
