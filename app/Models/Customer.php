@@ -20,7 +20,9 @@ class Customer extends Model
         'last_name',
         'email',
         'birth_date',
-        'sex'
+        'sex',
+        'group_id',
+        'template_id'
     ];
 
     //customer belongs to many groups

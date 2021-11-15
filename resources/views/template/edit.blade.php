@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group @if($errors->has('email_message')) has-error @endif">
                     {!! Form::label('email_message') !!}
-                    {!! Form::textarea('email_message', $template->email_message, ['class'=>'form-control', 'placeholder'=>'Message']) !!}
+                    {!! Form::textarea('email_message', $template->email_message, ['class'=>'form-control', 'placeholder'=>'Edit email message']) !!}
                     @if($errors->has('email_message'))
                         <span class="help-block">{!! $errors->first('email_message') !!}</span>
                     @endif

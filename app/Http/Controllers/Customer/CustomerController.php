@@ -52,7 +52,7 @@ class CustomerController extends Controller
             $customer = new Customer($request->all());
             $customer->groups()->sync($request->group_id, false);
             $customer->templates()->sync($request->template_id, false);
-            $category->save();
+            $customer->save();
             session()->flash('success','Customer created successfully');
         } catch (\Exception $e) {
             //add log here
