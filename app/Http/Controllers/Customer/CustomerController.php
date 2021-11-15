@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Group;
+use App\Models\Template;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -26,7 +28,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        return view('customer.create')->with('groups', Group::orderBy('name','ASC')->pluck('name','id'))
+            ->with('templates', Template::orderBy('name', 'ASC')->pluck('name','id'));
     }
 
     /**
@@ -37,29 +40,26 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $validated = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|unique'
-        ],
-        [
-            'first_name.required' => 'Please enter first name',
-            'last_name.required' => 'Please enter last name',
-            'email.unique' => 'Email already exist',
+            'email' => 'required|unique:customers',
+            'sex' => 'nullable',
+            'birth_date' => 'nullable|date',
+            'group_id' => 'required',
         ]);
         
         try {
-            $customer = new Customer($request->all());
-            $customer->groups()->sync($request->group_id, false);
-            $customer->templates()->sync($request->template_id, false);
+            $customer = new Customer($validated);
             $customer->save();
+            $customer->groups()->sync($request->group_id, false);
             session()->flash('success','Customer created successfully');
         } catch (\Exception $e) {
             //add log here
             session()->flash('error','Customer was not created. Please try again.');
         }
         
-        return redirect()->route('customer.index');
+        return redirect()->route('customers.index');
     }
 
     /**
@@ -108,6 +108,6 @@ class CustomerController extends Controller
             session()->flash('success','Customer deleted successfully');
         else
             session()->flash('error','Customer was not deleted. Please try again.');
-        return redirect()->route('customer.index');
+        return redirect()->route('customers.index');
     }
 }

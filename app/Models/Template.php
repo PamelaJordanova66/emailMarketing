@@ -21,7 +21,8 @@ class Template extends Model
         'email_subject',
         'email_message',
         'bcc_email',
-        'cc_email'
+        'cc_email',
+        'schedule_sending'
     ];
 
     /**
@@ -40,14 +41,41 @@ class Template extends Model
         return $this->belongsTo(User::class);
     }
 
-    //template belongs to many groups
-    public function groups()
+
+    //set cc email attribute
+    public function setCcEmailAttribute($value)
     {
-        return $this->belongsToMany(Group::class, 'category_posts');
+        if (! $value) {
+            $this->attributes['cc_email'] = json_encode([], true);
+        } else {
+            $this->attributes['cc_email'] = json_encode($value, true);
+        }
     }
-    //template belongs to many customers
-    public function customers()
+    //get cc mail attribute
+    public function getCcEmailAttribute($value)
     {
-        return $this->belongsToMany(Customer::class, 'category_posts');
+        if (! $value) {
+            return json_decode('[]', true);
+        } else {
+            return json_decode($value, true);
+        }
+    }
+    //set bcc email attribute
+    public function setBccEmailAttribute($value)
+    {
+        if (! $value) {
+            $this->attributes['bcc_email'] = json_encode([], true);
+        } else {
+            $this->attributes['bcc_email'] = json_encode($value, true);
+        }
+    }
+    //bcc email attribute
+    public function getBccEmailAttribute($value)
+    {
+        if (! $value) {
+            return json_decode('[]', true);
+        } else {
+            return json_decode($value, true);
+        }
     }
 }

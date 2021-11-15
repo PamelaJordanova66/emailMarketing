@@ -17,12 +17,10 @@ class CreateCustomersGroupsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('group_id');
             $table->unsignedBigInteger('customer_id')->index();
-            $table->unsignedBigInteger('template_id');
             $table->timestamps();
 
             $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
             $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
             
             $table->softDeletes();
         });

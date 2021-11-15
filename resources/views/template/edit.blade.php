@@ -22,62 +22,56 @@
                 </div>
                 <div class="form-group @if($errors->has('email_subject')) has-error @endif">
                     {!! Form::label('Subject') !!}
-                    {!! Form::text('email_subject', $category->email_subject, ['class'=>'form-control', 'placeholder'=>'Subject']) !!}
+                    {!! Form::text('email_subject', $template->email_subject, ['class'=>'form-control', 'placeholder'=>'Subject']) !!}
                     @if($errors->has('email_subject'))
                         <span class="help-block">{!! $errors->first('email_subject') !!}</span>
                     @endif
                 </div>
+                    {!! Form::label('Email Message. Use $customer for including customer name for example. 
+                        Dear $customer') !!}
+                    {!! Form::textarea('email_message', $template->email_message, ['class'=>'form-control', 'placeholder'=>'Enter email message']) !!}
+                    <script>
+                            CKEDITOR.replace( 'email_message' );
+                    </script>
                 <div class="form-group @if($errors->has('bcc_email')) has-error @endif">
-                    {!! Form::label('Bcc email') !!}
-                    {!! Form::email('bcc_email', $category->bcc_email, ['class'=>'form-control', 'placeholder'=>'bcc email']) !!}
+                    {!! Form::label('bcc email') !!}
+                    {!! Form::email('bcc_email', ($template->bcc_email? $template->bcc_email : ''), ['class'=>'form-control', 'placeholder'=>'bcc email']) !!}
                     @if($errors->has('bcc_email'))
                         <span class="help-block">{!! $errors->first('bcc_email') !!}</span>
-                    @endif
+                    @endif 
                 </div>
                 <div class="form-group @if($errors->has('cc_email')) has-error @endif">
-                    {!! Form::label('Cc email') !!}
-                    {!! Form::email('cc_email', $category->cc_email, ['class'=>'form-control', 'placeholder'=>'cc email']) !!}
+                    {!! Form::label('cc email') !!}
+                    {!! Form::email('cc_email', ($template->cc_email? $template->cc_email : ''), ['class'=>'form-control', 'placeholder'=>'cc email']) !!}
                     @if($errors->has('cc_email'))
-                        <span class="help-block">{!! $errors->first('email_subject') !!}</span>
+                        <span class="help-block">{!! $errors->first('cc_email') !!}</span>
                     @endif
                 </div>
-                <div class="form-group @if($errors->has('email_message')) has-error @endif">
-                    {!! Form::label('email_message') !!}
-                    {!! Form::textarea('email_message', $template->email_message, ['class'=>'form-control', 'placeholder'=>'Edit email message']) !!}
-                    @if($errors->has('email_message'))
-                        <span class="help-block">{!! $errors->first('email_message') !!}</span>
-                    @endif
-                </div>
+
                 <div class="form-group @if($errors->has('schedule_sending')) has-error @endif">
-                    {!! Form::label('schedule_sending') !!}
-                    <div class='input-group date' id='datetimepicker'>
-                        <input type='text' class="form-control" placeholder='Date Picker' />
-                        <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+                    {!! Form::label('Schedule Sending') !!}
+                    {!! Form::date('schedule_sending', $template->schedule_sending, ['class'=>'form-control','placeholder'=>'Enter email message']) !!}
+                    @if($errors->has('schedule_sending'))
+                        <span class="help-block">{!! $errors->first('schedule_sending') !!}</span>
+                    @endif
                 </div>
-                
-                
-                {!! Form::submit('Update', ['class'=>'btn btn-sm btn-warning']) !!}
+
+                {!! Form::submit('Create', ['class'=>'btn btn-sm btn-primary']) !!}
                 {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection         
+@endsection
 
 @section('javascript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>  
-    <script>
-        $(document).ready(function() {
-           $('#schedule_sending').datetimepicker();
-        });
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $( "#datepicker" ).datepicker();
+</script>
     
 
 @endsection

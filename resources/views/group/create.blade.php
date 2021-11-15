@@ -16,6 +16,13 @@
                         <span class="help-block">{!! $errors->first('name') !!}</span>
                     @endif
                 </div>
+                <div class="form-group @if($errors->has('template_id')) has-error @endif">
+                    {!! Form::label('Choose Template') !!}
+                    {!! Form::select('template_id', $templates, null, ['class'=>'form-control', 'id'=>'template_id']) !!}
+                    @if($errors->has('template_id'))
+                        <span class="help-block">{!! $errors->first('template_id') !!}</span>
+                    @endif
+                </div>
                 
                 {!! Form::submit('Create', ['class'=>'btn btn-sm btn-primary']) !!}
                 {!! Form::close() !!}

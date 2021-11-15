@@ -16,7 +16,8 @@ class Group extends Model
      * @var string[]
      */
     protected $fillable = [
-        'name'
+        'name',
+        'template_id'
     ];
 
     //group belongs to many customers
@@ -25,9 +26,9 @@ class Group extends Model
         return $this->belongsToMany(Customer::class, 'customers_groups');
     }
 
-    //group belongs to many templates
-    public function templates()
+    //group belongs to one template
+    public function template()
     {
-        return $this->belongsToMany(Template::class, 'customers_groups');
+        return $this->belongsTo(Template::class);
     }
 }

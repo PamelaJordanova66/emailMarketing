@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('stylesheet')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-@endsection
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -27,13 +23,12 @@
                         <span class="help-block">{!! $errors->first('email_subject') !!}</span>
                     @endif
                 </div>
-                <div class="form-group @if($errors->has('email_message')) has-error @endif">
-                    {!! Form::label('Message') !!}
-                    {!! Form::textarea('email_message', null, ['class'=>'form-control', 'placeholder'=>'Enter email message']) !!}
-                    @if($errors->has('email_message'))
-                        <span class="help-block">{!! $errors->first('email_message') !!}</span>
-                    @endif
-                </div>
+                    {!! Form::label('Email Message. Use $customer for including customer name for example. 
+                        Dear $customer') !!}
+                    <textarea name="email_message"></textarea>
+                    <script>
+                            CKEDITOR.replace( 'email_message' );
+                    </script>
                 <div class="form-group @if($errors->has('bcc_email')) has-error @endif">
                     {!! Form::label('bcc email') !!}
                     {!! Form::email('bcc_email', null, ['class'=>'form-control', 'placeholder'=>'bcc email']) !!}
@@ -50,13 +45,11 @@
                 </div>
 
                 <div class="form-group @if($errors->has('schedule_sending')) has-error @endif">
-                    {!! Form::label('schedule_sending') !!}
-                    <div class='input-group date' id='datetimepicker'>
-                        <input type='text' class="form-control" placeholder='Date Picker' />
-                        <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+                    {!! Form::label('Schedule Sending') !!}
+                    <input type="date" class="form-control" id="schedule_sending" name="schedule_sending">
+                    @if($errors->has('schedule_sending'))
+                        <span class="help-block">{!! $errors->first('schedule_sending') !!}</span>
+                    @endif
                 </div>
 
                 {!! Form::submit('Create', ['class'=>'btn btn-sm btn-primary']) !!}
@@ -69,15 +62,12 @@
 @endsection
 
 @section('javascript')
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" 
-    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            CKEDITOR.replace('email_message');
-        });
-    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    $( "#datepicker" ).datepicker();
+</script>
     
 
 @endsection

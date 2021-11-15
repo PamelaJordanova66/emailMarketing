@@ -1,5 +1,7 @@
 @extends('layouts.app')
-
+@section('stylesheet')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 @section('content')
 <div class="container">
     <div class="row">
@@ -41,7 +43,7 @@
                         <tr>
                             <td>{{ $group->id }}</td>
                             <td>{{ $group->name }}</td>
-                            <td>{{ count($group->customers()) }}</td>
+                            <td>{{ $group->customers()->count() }}</td>
                             <td>
                                 <a href="{{ route('groups.edit', $group->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                 {!! Form::open(['route'=>['groups.destroy', $group->id], 'method'=>'delete', 'style'=>'display:inline']) !!}

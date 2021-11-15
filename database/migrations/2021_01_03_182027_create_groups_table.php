@@ -16,8 +16,12 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('template_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('template_id')->references('id')->on('templates')->onDelete('cascade');
+
         });
     }
 

@@ -20,20 +20,12 @@ class Customer extends Model
         'last_name',
         'email',
         'birth_date',
-        'sex',
-        'group_id',
-        'template_id'
+        'sex'
     ];
 
     //customer belongs to many groups
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'customers_groups');
-    }
-
-    //customer belongs to many templates
-    public function templates()
-    {
-        return $this->belongsToMany(Template::class, 'customers_groups');
     }
 }

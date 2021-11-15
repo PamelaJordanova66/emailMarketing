@@ -39,9 +39,9 @@
                         <tbody>
                         @foreach($templates as $template)
                         <tr>
-                            <td>{{ $group->id }}</td>
-                            <td>{{ $group->name }}</td>
-                            <td>{{ $group->email_subject }}</td>
+                            <td>{{ $template->id }}</td>
+                            <td>{{ $template->name }}</td>
+                            <td>{{ $template->email_subject }}</td>
                             <td>
                                 <a href="{{ route('templates.edit', $template->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                 {!! Form::open(['route'=>['templates.destroy', $template->id], 'method'=>'delete', 'style'=>'display:inline']) !!}

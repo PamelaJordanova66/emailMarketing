@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Template;
 use App\Http\Controllers\Controller;
 use App\Models\Template;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TemplateController extends Controller
 {
@@ -26,7 +27,7 @@ class TemplateController extends Controller
      */
     public function create()
     {
-        //
+        return view('template.create');
     }
 
     /**
@@ -41,9 +42,9 @@ class TemplateController extends Controller
             'name' => 'required',
             'email_subject' => 'required',
             'email_message' => 'required',
-            'bcc_email' => 'required|email',
-            'cc_email' => 'required|email',
-            'schedule_sending' => 'required',
+            'bcc_email' => 'nullable|email',
+            'cc_email' => 'nullable|email',
+            'schedule_sending' => 'nullable|date',
         ],
         [
             'name.required' => 'Please enter name',
@@ -51,14 +52,16 @@ class TemplateController extends Controller
         ]);
         
         try {
-            new Template($request->all());
+            $template = new Template($request->all());
+            $template->user_id = Auth::id();
+            $template->save();
             session()->flash('success','Template created successfully');
         } catch (\Exception $e) {
             //add log here
             session()->flash('error','Template was not created. Please try again.');
         }
         
-        return redirect()->route('template.index');
+        return redirect()->route('templates.index');
     }
     /**
      * Display the specified resource.
@@ -97,7 +100,7 @@ class TemplateController extends Controller
             'email_message' => 'required',
             'bcc_email' => 'nullable|email',
             'cc_email' => 'nullable|email',
-            'schedule_sending' => 'nullable',
+            'schedule_sending' => 'nullable|date',
         ],
         [
             'name.required' => 'Please enter name',
@@ -105,19 +108,20 @@ class TemplateController extends Controller
         ]);
         
         try {
-            $group->name = $request->name;
-            $group->email_subject = $request->email_subject;
-            $group->email_message = $request->email_message;
-            $group->bcc_email = $request->bcc_email;
-            $group->cc_email = $request->cc_email;
-            $group->schedule_sending = $request->schedule_sending;
-            $group->save();
-            session()->flash('success','Group updated successfully');
+            $template->update([
+                'name' => $request->name,
+                'email_subject' => $request->email_subject,
+                'email_message' => $request->email_message,
+                'bcc_email' => $request->bcc_email,
+                'cc_email' => $request->cc_email,
+                'schedule_sending' => $request->schedule_sending
+            ]);
+            session()->flash('success','Template updated successfully');
         } catch (\Exception $e) {
             //add log here
-            session()->flash('error','Group was not updated. Please try again.');
+            session()->flash('error','Template was not updated. Please try again.');
         }
-        return redirect()->route('template.index');
+        return redirect()->route('templates.index');
     }
 
     /**
@@ -132,6 +136,6 @@ class TemplateController extends Controller
             session()->flash('success','Template deleted successfully');
         else
             session()->flash('error','Template was not deleted. Please try again.');
-        return redirect()->route('template.index');
+        return redirect()->route('templates.index');
     }
 }

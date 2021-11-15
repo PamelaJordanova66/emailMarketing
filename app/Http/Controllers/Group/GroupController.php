@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Group;
 
 use App\Http\Controllers\Controller;
 use App\Models\Group;
+use App\Models\Template;
 use Illuminate\Http\Request;
 
 class GroupController extends Controller
@@ -26,7 +27,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        return view('group.create')->with('templates', Template::orderBy('name', 'ASC')->pluck('name','id'));
     }
 
     /**
@@ -37,22 +38,21 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $validated = $request->validate([
             'name' => 'required',
-        ],
-        [
-            'name.required' => 'Enter name',
+            'template_id' => 'required'
         ]);
         
         try {
-            new Group($request->name);
+            $group = new Group($validated);
+            $group->save();
             session()->flash('success','Group created successfully');
         } catch (\Exception $e) {
             //add log here
             session()->flash('error','Group was not created. Please try again.');
         }
         
-        return redirect()->route('group.index');
+        return redirect()->route('groups.index');
     }
 
     /**
@@ -74,7 +74,8 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        return view('group.edit', compact('group'));
+        return view('group.edit')->with(['group' => $group])
+            ->with('templates', Template::orderBy('name', 'ASC')->pluck('name','id'));
     }
 
     /**
@@ -86,23 +87,22 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        $this->validate($request,[
+        $request->validate([
             'name' => 'required',
-        ],
-        [
-            'name.required' => 'Enter name',
+            'template_id' => 'required'
         ]);
         
         try {
             $group->update([
                 'name' => $request->name,
+                'template_id' => $request->template_id
             ]);
             session()->flash('success','Group updated successfully');
         } catch (\Exception $e) {
             //add log here
             session()->flash('error','Group was not updated. Please try again.');
         }
-        return redirect()->route('group.index');
+        return redirect()->route('groups.index');
     }
 
     /**
@@ -117,6 +117,6 @@ class GroupController extends Controller
             session()->flash('success','Group deleted successfully');
         else
             session()->flash('error','Group was not deleted. Please try again.');
-        return redirect()->route('group.index');
+        return redirect()->route('groups.index');
     }
 }
