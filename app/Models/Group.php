@@ -28,7 +28,7 @@ class Group extends Model
      */
 
     protected $casts = [
-        'schedule_sending' => 'datetime',
+        'schedule_sending' => 'date',
     ];
 
     //group belongs to many customers

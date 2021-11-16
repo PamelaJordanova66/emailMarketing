@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Schema;
 
 class SendTemplateEmail extends Mailable
 {
@@ -30,9 +31,16 @@ class SendTemplateEmail extends Mailable
      */
     public function build()
     {
+        $message = $this->template->email_message;
+        $column_names = Schema::getColumnListing('customers');
+        foreach($column_names as $column){
+            if(strpos($message, $column)){
+                $replace_message = str_replace($column, $this->customer->$column, $message);
+                $message = $replace_message;
+            }
+        }
         return $this->view('email.custom_template')
-            ->with(['customer' => $this->customer,
-                    'template' => $this->template])
+            ->with(['message' => $message])
             ->from(env('EMAIL_FROM'), env('APP_NAME'));
     }
 }

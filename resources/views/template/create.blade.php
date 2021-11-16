@@ -23,7 +23,7 @@
                         <span class="help-block">{!! $errors->first('email_subject') !!}</span>
                     @endif
                 </div>
-                    <label>Email Message. Use @php echo '{{ }}' @endphp for including customer information. For example. Dear @php echo '{{ first_name }}' @endphp Available information: first_name, last_name, email and birth_date.</label>
+                    <label>Email Message. Use first_email, laste_email for including customer information. For example. Dear first_name Available information: first_name, last_name, email and birth_date.</label>
                     <textarea name="email_message" placeholder="Please enter email message"></textarea>
                     <script>
                         CKEDITOR.replace( 'email_message' );

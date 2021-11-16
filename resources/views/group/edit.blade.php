@@ -27,7 +27,7 @@
 
                 <div class="form-group @if($errors->has('schedule_sending')) has-error @endif">
                     {!! Form::label('Schedule Sending') !!}
-                    {!! Form::date('schedule_sending', $template->schedule_sending, ['class'=>'form-control','placeholder'=>'Enter email message']) !!}
+                    {!! Form::date('schedule_sending', $group->schedule_sending, ['class'=>'form-control','placeholder'=>'Enter email message']) !!}
                     @if($errors->has('schedule_sending'))
                         <span class="help-block">{!! $errors->first('schedule_sending') !!}</span>
                     @endif

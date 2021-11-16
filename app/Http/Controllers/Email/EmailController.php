@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Jobs\SendEmailJob;
+use Illuminate\Support\Facades\Schema;
 
 
 class EmailController extends Controller
