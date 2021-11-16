@@ -21,19 +21,9 @@ class Template extends Model
         'email_subject',
         'email_message',
         'bcc_email',
-        'cc_email',
-        'schedule_sending'
+        'cc_email'
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-
-    protected $casts = [
-        'schedule_sending' => 'datetime',
-    ];
 
     //template belongs to user
     public function user()

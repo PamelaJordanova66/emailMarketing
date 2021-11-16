@@ -38,13 +38,14 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'name' => 'required',
-            'template_id' => 'required'
+            'template_id' => 'required',
+            'schedule_sending' => 'nullable|date'
         ]);
         
         try {
-            $group = new Group($validated);
+            $group = new Group($request->all());
             $group->save();
             session()->flash('success','Group created successfully');
         } catch (\Exception $e) {
@@ -89,13 +90,15 @@ class GroupController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'template_id' => 'required'
+            'template_id' => 'required',
+            'schedule_sending' => 'nullable|date'
         ]);
         
         try {
             $group->update([
                 'name' => $request->name,
-                'template_id' => $request->template_id
+                'template_id' => $request->template_id,
+                'schedule_sending' => $request->schedule_sending,
             ]);
             session()->flash('success','Group updated successfully');
         } catch (\Exception $e) {

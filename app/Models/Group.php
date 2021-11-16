@@ -17,7 +17,18 @@ class Group extends Model
      */
     protected $fillable = [
         'name',
-        'template_id'
+        'template_id',
+        'schedule_sending'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+
+    protected $casts = [
+        'schedule_sending' => 'datetime',
     ];
 
     //group belongs to many customers
@@ -26,7 +37,7 @@ class Group extends Model
         return $this->belongsToMany(Customer::class, 'customers_groups');
     }
 
-    //group belongs to one template
+    //group belongs to a template
     public function template()
     {
         return $this->belongsTo(Template::class);

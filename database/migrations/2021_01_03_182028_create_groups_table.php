@@ -17,6 +17,7 @@ class CreateGroupsTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('template_id');
+            $table->timestamp('schedule_sending')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

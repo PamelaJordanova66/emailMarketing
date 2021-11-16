@@ -21,7 +21,6 @@ class CreateTemplatesTable extends Migration
             $table->longText('email_message');
             $table->json('bcc_email')->nullable();
             $table->json('cc_email')->nullable();
-            $table->timestamp('schedule_sending')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

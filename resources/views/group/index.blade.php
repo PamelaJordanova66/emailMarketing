@@ -35,7 +35,7 @@
                             <th scope="col" width="60">#</th>
                             <th scope="col">Name</th>
                             <th scope="col">Customers</th>
-                            <th scope="col" width="129">Action</th>
+                            <th scope="col" width="230">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -49,6 +49,8 @@
                                 {!! Form::open(['route'=>['groups.destroy', $group->id], 'method'=>'delete', 'style'=>'display:inline']) !!}
                                 {!! Form::submit('Delete', ['class'=>'btn btn-sm btn-danger']) !!}
                                 {!! Form::close() !!}
+
+                                <a href="{{ route('sendEmail', $group->id) }}" class="btn btn-sm btn-success">Send Email</a>
                             </td>
                         </tr>
                         @endforeach

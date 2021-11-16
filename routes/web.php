@@ -25,5 +25,5 @@ Route::group(['middleware' => 'auth', 'verified'], function () {
         'groups' => \App\Http\Controllers\Group\GroupController::class,
         'templates' => \App\Http\Controllers\Template\TemplateController::class,
     ]);
-    
+    Route::get('sendEmail', [\App\Http\Controllers\Email\EmailController::class, 'sendEmail'])->name('sendEmail');
 });

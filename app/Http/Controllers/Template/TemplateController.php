@@ -38,21 +38,16 @@ class TemplateController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $validated = $this->validate($request,[
             'name' => 'required',
             'email_subject' => 'required',
             'email_message' => 'required',
-            'bcc_email' => 'nullable|email',
-            'cc_email' => 'nullable|email',
-            'schedule_sending' => 'nullable|date',
-        ],
-        [
-            'name.required' => 'Please enter name',
-            'email_message.required' => 'Please enter message'
+            'bcc_email' => 'nullable',
+            'cc_email' => 'nullable',
         ]);
         
         try {
-            $template = new Template($request->all());
+            $template = new Template($validated);
             $template->user_id = Auth::id();
             $template->save();
             session()->flash('success','Template created successfully');
@@ -98,13 +93,8 @@ class TemplateController extends Controller
             'name' => 'required',
             'email_subject' => 'nullable',
             'email_message' => 'required',
-            'bcc_email' => 'nullable|email',
-            'cc_email' => 'nullable|email',
-            'schedule_sending' => 'nullable|date',
-        ],
-        [
-            'name.required' => 'Please enter name',
-            'email_message.required' => 'Please enter message'
+            'bcc_email' => 'nullable',
+            'cc_email' => 'nullable'
         ]);
         
         try {
@@ -113,8 +103,7 @@ class TemplateController extends Controller
                 'email_subject' => $request->email_subject,
                 'email_message' => $request->email_message,
                 'bcc_email' => $request->bcc_email,
-                'cc_email' => $request->cc_email,
-                'schedule_sending' => $request->schedule_sending
+                'cc_email' => $request->cc_email
             ]);
             session()->flash('success','Template updated successfully');
         } catch (\Exception $e) {

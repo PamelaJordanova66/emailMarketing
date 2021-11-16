@@ -14,7 +14,17 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                        <h4>Tips for using our tool</h4>
+                        <div class="ml-12">
+                            <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                <ul>
+                                <li>First you slould create template.</li>
+                                <li>Then create a group and add the template you would like to use for that group of customers.</li>
+                                <li>After create your customers and add them to a whatever group you want.</li>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
