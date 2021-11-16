@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Group;
+use App\Jobs\SendEmailJob;
 
 class SendScheduleEmail extends Command
 {
@@ -40,10 +41,9 @@ class SendScheduleEmail extends Command
     {
         foreach(Group::where('schedule_sending', date('Y-m-d'))->get() as  $group){
             $template = $group->template()->first();
-            foreach($group->customers() as $customer){
+            foreach($group->customers()->get() as $customer){
                 SendEmailJob::dispatch($customer, $template);
             }
-
         }
     }
 }

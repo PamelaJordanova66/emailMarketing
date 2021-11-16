@@ -14,6 +14,12 @@ class EmailController extends Controller
     //send email to a group of customers with the choosen template
     public function sendEmail($id)
     {
+        foreach(Group::where('schedule_sending', date('Y-m-d'))->get() as  $group){
+            $template = $group->template()->first();
+            foreach($group->customers()->get() as $customer){
+                SendEmailJob::dispatch($customer, $template);
+            }
+        }
         $template = Group::find($id)->template()->first();
         foreach(Group::find($id)->customers()->get() as $customer)
         {

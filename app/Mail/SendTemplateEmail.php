@@ -37,10 +37,11 @@ class SendTemplateEmail extends Mailable
             if(strpos($message, $column)){
                 $replace_message = str_replace($column, $this->customer->$column, $message);
                 $message = $replace_message;
+                $this->template->update(['email_message'=>$message]);
             }
         }
         return $this->view('email.custom_template')
-            ->with(['message' => $message])
+            ->with(['template' => $this->template])
             ->from(env('EMAIL_FROM'), env('APP_NAME'));
     }
 }
