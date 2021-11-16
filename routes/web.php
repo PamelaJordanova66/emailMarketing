@@ -20,10 +20,10 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => 'auth', 'verified'], function () {
     Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('send_email/{id}', [\App\Http\Controllers\Email\EmailController::class, 'sendEmail'])->name('sendEmail');
     Route::resources([
         'customers' => \App\Http\Controllers\Customer\CustomerController::class,
         'groups' => \App\Http\Controllers\Group\GroupController::class,
         'templates' => \App\Http\Controllers\Template\TemplateController::class,
     ]);
-    Route::get('sendEmail', [\App\Http\Controllers\Email\EmailController::class, 'sendEmail'])->name('sendEmail');
 });

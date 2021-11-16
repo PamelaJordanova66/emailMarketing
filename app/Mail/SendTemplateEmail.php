@@ -11,14 +11,16 @@ class SendTemplateEmail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    protected $customer, $template;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($customer, $template)
     {
-        //
+        $this->customer = $customer;
+        $this->template = $template;
     }
 
     /**
@@ -28,6 +30,9 @@ class SendTemplateEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.custom_template');
+        return $this->view('email.custom_template')
+            ->with(['customer' => $this->customer,
+                    'template' => $this->template])
+            ->from(env('EMAIL_FROM'), env('APP_NAME'));
     }
 }

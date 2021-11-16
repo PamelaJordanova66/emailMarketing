@@ -4,6 +4,6 @@
     <title>EmailMarketingTool</title>
 </head>
 <body>
-    <p>{{ $content['email_message'] }}</p>
+    <p>{!! $template->email_message !!}</p>
 </body>
 </html>

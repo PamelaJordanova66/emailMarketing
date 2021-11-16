@@ -5,20 +5,24 @@ namespace App\Http\Controllers\Email;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Group;
+use App\Jobs\SendEmailJob;
 
 
 class EmailController extends Controller
 {
     //send email to a group of customers with the choosen template
-    public function sendEmail(Request $request)
+    public function sendEmail($id)
     {
-        foreach(Group::find($request->id)->customers as $customer)
+        $template = Group::find($id)->template()->first();
+        foreach(Group::find($id)->customers()->get() as $customer)
         {
-            $template = Group::find($request->id)->template();
-            \Mail::to($customer)
-            ->cc($template->cc_email)
-            ->bcc($template->bcc_email)
-            ->queue(new OrderShipped($order));
+            try{
+                $email = SendEmailJob::dispatch($customer, $template);
+                session()->flash('success','Emails sent successfully');
+            } catch (\Exception $e) {
+                //add log here
+                session()->flash('error','Emails were not sent. Please try again.');
+            }
         }
     }
 }

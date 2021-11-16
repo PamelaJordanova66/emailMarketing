@@ -25,7 +25,7 @@
                     @endif
                 </div>
                 <label>Email Message. Use @php echo '{{ }}' @endphp for including customer information. For example. Dear @php echo '{{ first_name }}' @endphp Available information: first_name, last_name, email and birth_date.</label>
-                    <textarea name="email_message" placeholder="Please enter email message"></textarea>
+                    <textarea name="email_message" placeholder="Please enter email message">{{ $template->email_message }}</textarea>
                     <script>
                         CKEDITOR.replace( 'email_message' );
                     </script>
@@ -44,7 +44,7 @@
                     @endif
                 </div>
 
-                {!! Form::submit('Create', ['class'=>'btn btn-sm btn-primary']) !!}
+                {!! Form::submit('Update', ['class'=>'btn btn-sm btn-primary']) !!}
                 {!! Form::close() !!}
                 </div>
             </div>

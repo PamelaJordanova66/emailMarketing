@@ -49,8 +49,7 @@
                                 {!! Form::open(['route'=>['groups.destroy', $group->id], 'method'=>'delete', 'style'=>'display:inline']) !!}
                                 {!! Form::submit('Delete', ['class'=>'btn btn-sm btn-danger']) !!}
                                 {!! Form::close() !!}
-
-                                <a href="{{ route('sendEmail', $group->id) }}" class="btn btn-sm btn-success">Send Email</a>
+                                <a href="{{ url('send_email', $group->id) }}" class="btn btn-sm btn-success">Send Email</a>
                             </td>
                         </tr>
                         @endforeach
