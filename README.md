@@ -7,6 +7,9 @@ Email Marketing is a toll that helps you sending emails to customers.
 Laravel 8  
 MySql  
 Bootstrap  
+
+## Mailing 
+
 Mailtrap for sending emails  
 
 
