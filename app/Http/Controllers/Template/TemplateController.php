@@ -42,8 +42,8 @@ class TemplateController extends Controller
             'name' => 'required',
             'email_subject' => 'required',
             'email_message' => 'required',
-            'bcc_email' => 'nullable',
-            'cc_email' => 'nullable',
+            'bcc_email' => 'nullable|email',
+            'cc_email' => 'nullable|email',
         ]);
         
         try {
@@ -93,8 +93,8 @@ class TemplateController extends Controller
             'name' => 'required',
             'email_subject' => 'nullable',
             'email_message' => 'required',
-            'bcc_email' => 'nullable',
-            'cc_email' => 'nullable'
+            'bcc_email' => 'nullable|email',
+            'cc_email' => 'nullable|email'
         ]);
         
         try {

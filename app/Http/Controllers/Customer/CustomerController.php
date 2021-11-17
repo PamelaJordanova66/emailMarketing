@@ -45,7 +45,7 @@ class CustomerController extends Controller
             'last_name' => 'required',
             'email' => 'required|unique:customers',
             'sex' => 'nullable',
-            'birth_date' => 'nullable|date',
+            'birth_date' => 'nullable',
             'group_id' => 'required',
         ]);
         

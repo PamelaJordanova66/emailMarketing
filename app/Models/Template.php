@@ -32,40 +32,40 @@ class Template extends Model
     }
 
 
-    //set cc email attribute
-    public function setCcEmailAttribute($value)
-    {
-        if (! $value) {
-            $this->attributes['cc_email'] = json_encode([], true);
-        } else {
-            $this->attributes['cc_email'] = json_encode($value, true);
-        }
-    }
-    //get cc mail attribute
-    public function getCcEmailAttribute($value)
-    {
-        if (! $value) {
-            return json_decode('[]', true);
-        } else {
-            return json_decode($value, true);
-        }
-    }
-    //set bcc email attribute
-    public function setBccEmailAttribute($value)
-    {
-        if (! $value) {
-            $this->attributes['bcc_email'] = json_encode([], true);
-        } else {
-            $this->attributes['bcc_email'] = json_encode($value, true);
-        }
-    }
-    //bcc email attribute
-    public function getBccEmailAttribute($value)
-    {
-        if (! $value) {
-            return json_decode('[]', true);
-        } else {
-            return json_decode($value, true);
-        }
-    }
+    // //set cc email attribute
+    // public function setCcEmailAttribute($value)
+    // {
+    //     if (! $value) {
+    //         $this->attributes['cc_email'] = json_encode([], true);
+    //     } else {
+    //         $this->attributes['cc_email'] = json_encode($value, true);
+    //     }
+    // }
+    // //get cc mail attribute
+    // public function getCcEmailAttribute($value)
+    // {
+    //     if (! $value) {
+    //         return json_decode('[]', true);
+    //     } else {
+    //         return json_decode($value, true);
+    //     }
+    // }
+    // //set bcc email attribute
+    // public function setBccEmailAttribute($value)
+    // {
+    //     if (! $value) {
+    //         $this->attributes['bcc_email'] = json_encode([], true);
+    //     } else {
+    //         $this->attributes['bcc_email'] = json_encode($value, true);
+    //     }
+    // }
+    // //bcc email attribute
+    // public function getBccEmailAttribute($value)
+    // {
+    //     if (! $value) {
+    //         return json_decode('[]', true);
+    //     } else {
+    //         return json_decode($value, true);
+    //     }
+    // }
 }

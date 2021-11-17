@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Group;
 use App\Jobs\SendEmailJob;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 
 class EmailController extends Controller
@@ -14,22 +14,15 @@ class EmailController extends Controller
     //send email to a group of customers with the choosen template
     public function sendEmail($id)
     {
-        foreach(Group::where('schedule_sending', date('Y-m-d'))->get() as  $group){
-            $template = $group->template()->first();
-            foreach($group->customers()->get() as $customer){
-                SendEmailJob::dispatch($customer, $template);
-            }
-        }
         $template = Group::find($id)->template()->first();
-        foreach(Group::find($id)->customers()->get() as $customer)
-        {
-            try{
-                $email = SendEmailJob::dispatch($customer, $template);
-                session()->flash('success','Emails sent successfully');
-            } catch (\Exception $e) {
-                //add log here
-                session()->flash('error','Emails were not sent. Please try again.');
-            }
+        foreach(Group::find($id)->customers()->get() as $customer){
+            SendEmailJob::dispatch($customer, $template);
         }
+        if(DB::table('failed_jobs')->select()->get()->count() > 0) 
+            session()->flash('error','Emails were not sent. Please try again.');
+        else
+            session()->flash('success','Emails sent successfully');
+
+        return redirect()->route('groups.index');
     }
 }

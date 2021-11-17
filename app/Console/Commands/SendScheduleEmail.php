@@ -39,6 +39,7 @@ class SendScheduleEmail extends Command
      */
     public function handle()
     {
+        //loop groups, then loop all the custumers to that group and dispatch the job for sending email
         foreach(Group::where('schedule_sending', date('Y-m-d'))->get() as  $group){
             $template = $group->template()->first();
             foreach($group->customers()->get() as $customer){

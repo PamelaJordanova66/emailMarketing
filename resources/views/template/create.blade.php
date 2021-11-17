@@ -23,21 +23,21 @@
                         <span class="help-block">{!! $errors->first('email_subject') !!}</span>
                     @endif
                 </div>
-                    <label>Email Message. Use first_email, laste_email for including customer information. For example. Dear first_name Available information: first_name, last_name, email and birth_date.</label>
+                    <label>Email Message. Use first_email, last_email for including customer information. For example. Dear first_name Available information: first_name, last_name, sex, email and birth_date.</label>
                     <textarea name="email_message" placeholder="Please enter email message"></textarea>
                     <script>
                         CKEDITOR.replace( 'email_message' );
                     </script>
                 <div class="form-group @if($errors->has('bcc_email')) has-error @endif">
                     {!! Form::label('bcc email') !!}
-                    {!! Form::text('bcc_email', null, ['class'=>'form-control', 'placeholder'=>'bcc email']) !!}
+                    {!! Form::email('bcc_email', null, ['class'=>'form-control', 'placeholder'=>'bcc email']) !!}
                     @if($errors->has('bcc_email'))
                         <span class="help-block">{!! $errors->first('bcc_email') !!}</span>
                     @endif 
                 </div>
                 <div class="form-group @if($errors->has('cc_email')) has-error @endif">
                     {!! Form::label('cc email') !!}
-                    {!! Form::text('cc_email', null, ['class'=>'form-control', 'placeholder'=>'cc email']) !!}
+                    {!! Form::email('cc_email', null, ['class'=>'form-control', 'placeholder'=>'cc email']) !!}
                     @if($errors->has('cc_email'))
                         <span class="help-block">{!! $errors->first('cc_email') !!}</span>
                     @endif

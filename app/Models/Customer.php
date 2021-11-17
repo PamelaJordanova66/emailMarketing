@@ -23,7 +23,7 @@ class Customer extends Model
         'sex'
     ];
 
-    //customer belongs to many groups
+    //customer can belongs to many groups
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'customers_groups');

@@ -19,8 +19,8 @@ class CreateTemplatesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('email_subject')->nullable();
             $table->longText('email_message');
-            $table->json('bcc_email')->nullable();
-            $table->json('cc_email')->nullable();
+            $table->string('bcc_email')->nullable();
+            $table->string('cc_email')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
