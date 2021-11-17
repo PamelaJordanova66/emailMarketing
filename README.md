@@ -22,13 +22,13 @@ After create your customers and add them to a whatever group you want.
 
 ## Start the project
 
-clone code
-php artisan key:generate
-composer update
-php artisan migrate
-add mail variables in .env
-create a user
-create a template then group then the customers
+clone code  
+php artisan key:generate  
+composer update  
+php artisan migrate  
+add mail variables in .env  
+create a user  
+create a template then group then the customers  
 
 ### Command
 
